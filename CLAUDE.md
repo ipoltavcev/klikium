@@ -6,8 +6,7 @@
 - Деплой: Render.com, сервис называется `emmpa-klikium`
 
 ## Ссылка на сайт
-<!-- TODO: уточните и вставьте точный URL из Render Dashboard -->
-<!-- Пример: https://emmpa-klikium.onrender.com -->
+https://klikium.onrender.com
 
 ## Ветка разработки
 - Рабочая ветка: `claude/provide-website-link-IBonj`
