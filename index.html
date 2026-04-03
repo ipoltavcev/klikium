@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMMPA — Performance-Based Email Marketing for Shopify</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #5cb85c;
+      --green-light: #f0f6ea;
+      --green-mid: #d6edcc;
+      --blue: #3b5bdb;
+      --blue-dark: #2f4ac0;
+      --dark: #1a1f2e;
+      --gray: #64748b;
+      --gray-light: #f8fafc;
+      --white: #ffffff;
+      --radius: 16px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #e8f0e0;
+      padding: 0 40px;
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, #3b5bdb, #5cb85c);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+      color: white;
+    }
+    .logo-text {
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--dark);
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .btn-book {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-book:hover { background: #4aa84a; transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    #hero {
+      background: linear-gradient(160deg, #f0f6ea 0%, #e8f4df 40%, #f5f9f1 100%);
+      padding: 100px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(92,184,92,0.12) 0%, transparent 70%);
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-label {
+      display: inline-block;
+      background: var(--green-mid);
+      color: #2d7a2d;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .hero-title span {
+      color: var(--green);
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--gray);
+      margin: 20px 0 36px;
+      max-width: 460px;
+      line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(59,91,219,0.3);
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59,91,219,0.4); }
+    .hero-image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 460px;
+    }
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .shopify-badge {
+      background: #96bf48;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+    .hero-metric {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .metric-box {
+      background: var(--green-light);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .metric-box .num {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+    }
+    .metric-box .lbl {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ─── SECTION ─── */
+    section { padding: 80px 40px; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    h2 {
+      text-align: center;
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--gray);
+      font-size: 16px;
+      max-width: 560px;
+      margin: 0 auto 56px;
+      line-height: 1.7;
+    }
+    .divider {
+      width: 48px;
+      height: 4px;
+      background: var(--green);
+      border-radius: 2px;
+      margin: 16px auto 0;
+    }
+
+    /* ─── USP STRIP ─── */
+    #usp {
+      background: var(--white);
+      padding: 0 40px 60px;
+    }
+    .usp-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .usp-card {
+      background: var(--green-light);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--green-mid);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .usp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .usp-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .usp-icon.green { background: var(--green); }
+    .usp-icon.yellow { background: #f59e0b; }
+    .usp-icon.purple { background: #7c3aed; }
+    .usp-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+
+    /* ─── WHY US ─── */
+    #why {
+      background: var(--green-light);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .why-text h2 { text-align: left; }
+    .why-text .divider { margin: 16px 0 0; }
+    .why-text p {
+      color: var(--gray);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-top: 24px;
+    }
+    .why-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .why-photo {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--green-mid);
+    }
+    .why-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .why-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      background: linear-gradient(135deg, #d6edcc, #b8e0a8);
+    }
+
+    /* ─── BRANDS ─── */
+    #brands { background: var(--white); }
+    .brands-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 0;
+    }
+    .brand-pill {
+      background: var(--gray-light);
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gray);
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+    }
+    .brand-pill:hover { background: var(--green-light); border-color: var(--green-mid); color: var(--dark); transform: translateY(-2px); }
+
+    /* ─── STATS ─── */
+    #stats {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #stats::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%235cb85c' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    #stats h2 { color: white; }
+    #stats .section-label { color: var(--green); }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-top: 0;
+    }
+    .stat-box { text-align: center; }
+    .stat-num {
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+    }
+    .stat-desc {
+      font-size: 14px;
+      color: #94a3b8;
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* ─── WHAT WE DO ─── */
+    #services { background: var(--green-light); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .service-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--green-mid);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .service-card.cta-card {
+      background: var(--green);
+      border-color: var(--green);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .service-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .service-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .service-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+    .service-icon { font-size: 36px; margin-bottom: 16px; }
+    .cta-card .service-title { color: white; font-size: 20px; }
+    .cta-card p { color: rgba(255,255,255,0.85); font-size: 14px; margin-bottom: 24px; }
+    .btn-white {
+      background: white;
+      color: var(--green);
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+    /* ─── DESIGN ─── */
+    #design { background: var(--white); }
+    .design-scroll {
+      display: grid;
+      grid-template-columns: repeat(5, 200px);
+      gap: 16px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--green-mid) transparent;
+    }
+    .design-item {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--gray-light);
+      aspect-ratio: 3/4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+
+    /* ─── PROCESS ─── */
+    #process { background: var(--green-light); }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      right: 12%;
+      height: 2px;
+      background: var(--green-mid);
+      z-index: 0;
+    }
+    .step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      border: 4px solid var(--green-light);
+      box-shadow: 0 4px 16px rgba(59,91,219,0.3);
+    }
+    .step-icon {
+      background: var(--green-light);
+      border: 2px solid var(--green-mid);
+      border-radius: 12px;
+      padding: 10px 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .step-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+    /* ─── RESULTS ─── */
+    #results { background: var(--white); }
+    .case-study {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+      padding-bottom: 80px;
+      border-bottom: 1px solid #e8f0e0;
+    }
+    .case-study:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .case-study.reverse { direction: rtl; }
+    .case-study.reverse > * { direction: ltr; }
+    .case-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .case-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .case-desc { font-size: 15px; color: var(--gray); line-height: 1.8; margin-bottom: 28px; }
+    .btn-case {
+      display: inline-block;
+      background: var(--green-light);
+      color: var(--green);
+      border: 2px solid var(--green-mid);
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-case:hover { background: var(--green); color: white; border-color: var(--green); }
+    .case-images {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .case-img {
+      background: linear-gradient(135deg, #1a1f2e, #2d3748);
+      border-radius: 10px;
+      aspect-ratio: 2/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    #testimonials { background: var(--green-light); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 2px solid var(--green-mid);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .testimonial-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .testimonial-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .stars { color: var(--green); font-size: 18px; margin-bottom: 8px; }
+    .rating { font-size: 14px; font-weight: 700; color: var(--dark); }
+    .rating span { color: var(--gray); font-weight: 400; margin-left: 4px; }
+    .testimonial-text {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-top: 16px;
+      font-style: italic;
+    }
+
+    /* ─── EBOOK ─── */
+    #ebook {
+      background: linear-gradient(160deg, #f0f6ea, #e8f4df);
+      padding: 80px 40px;
+    }
+    .ebook-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .ebook-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .ebook-title {
+      font-size: 36px;
+      font-weight: 900;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .ebook-title span { color: #e63946; }
+    .ebook-sub { font-size: 15px; color: var(--gray); margin-bottom: 28px; }
+    .ebook-form { display: flex; gap: 12px; flex-wrap: wrap; }
+    .ebook-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 14px 20px;
+      border: 2px solid var(--green-mid);
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .ebook-input:focus { border-color: var(--green); }
+    .ebook-visual {
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+    .ebook-cover {
+      background: linear-gradient(135deg, #1a1f2e, #2d3748);
+      border-radius: 12px;
+      padding: 28px;
+      color: white;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .ebook-cover strong { font-size: 22px; display: block; margin: 8px 0; color: var(--green); }
+
+    /* ─── FAQ ─── */
+    #faq { background: var(--white); }
+    .faq-list { max-width: 760px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid #e8f0e0;
+    }
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      padding: 20px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--green);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: inherit;
+      transition: color 0.2s;
+    }
+    .faq-q:hover { color: #4aa84a; }
+    .faq-q .icon {
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1;
+      transition: transform 0.3s;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+    .faq-q.open .icon { transform: rotate(45deg); }
+    .faq-a {
+      display: none;
+      padding: 0 0 20px;
+      font-size: 15px;
+      color: var(--gray);
+      line-height: 1.7;
+    }
+    .faq-a.show { display: block; }
+
+    /* ─── CTA BANNER ─── */
+    #cta { background: var(--green-light); padding: 60px 40px; }
+    .cta-banner {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #e8f4df, #d6edcc);
+      border-radius: 24px;
+      padding: 56px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      border: 2px solid var(--green-mid);
+    }
+    .cta-text { font-size: 14px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--gray); margin-bottom: 8px; }
+    .cta-title { font-size: 40px; font-weight: 900; color: var(--dark); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--white);
+      border-top: 1px solid #e8f0e0;
+      padding: 60px 40px 32px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo-text { font-size: 24px; margin-bottom: 12px; display: block; }
+    .footer-brand p { font-size: 14px; color: var(--gray); line-height: 1.7; margin-top: 12px; }
+    .footer-badges { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+    .footer-badge {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gray);
+    }
+    .footer-col h4 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--dark); margin-bottom: 16px; }
+    .footer-col a { display: block; font-size: 14px; color: var(--gray); text-decoration: none; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--green); }
+    .contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 14px; color: var(--gray); }
+    .contact-icon { font-size: 16px; }
+    .social-row { display: flex; gap: 10px; margin-top: 20px; }
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--green);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      text-decoration: none;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .social-btn:hover { transform: translateY(-2px); background: #4aa84a; }
+    .footer-bottom {
+      border-top: 1px solid #e8f0e0;
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: gap;
+    }
+    .footer-bottom p { font-size: 13px; color: #94a3b8; }
+    .footer-bottom a { color: #94a3b8; text-decoration: underline; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .hero-inner, .why-grid, .ebook-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-title { font-size: 40px; }
+      .usp-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .process-steps::before { display: none; }
+      .case-study { grid-template-columns: 1fr; }
+      .case-study.reverse { direction: ltr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      section, #hero, #ebook, #cta, footer { padding-left: 20px; padding-right: 20px; }
+      h2 { font-size: 30px; }
+      .hero-title { font-size: 32px; }
+      .usp-grid, .stats-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .cta-banner { padding: 32px; flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">E</div>
+      <span class="logo-text">EMMPA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#why">Why Us?</a></li>
+      <li><a href="#stats">Statistic</a></li>
+      <li><a href="#services">What We Do</a></li>
+      <li><a href="#design">Design</a></li>
+      <li><a href="#process">Our Process</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="https://calendly.com" class="btn-book">Book a call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="hero-label">Shopify Email Marketing</span>
+      <h1 class="hero-title">Performance&#8209;based<br>email marketing team<br><span>for Shopify store</span></h1>
+      <p class="hero-sub">Keep your hard-won customers and add an extra 30–50% of profitable revenue using Email and SMS, with no ad spend.</p>
+      <div class="hero-btns">
+        <a href="#why" class="btn-primary">Free Consultation</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <span class="shopify-badge">Shopify Partner</span>
+          <span style="font-size:13px;color:#64748b;font-weight:600;">Klaviyo Expert</span>
+        </div>
+        <div class="hero-metric">
+          <div class="metric-box">
+            <div class="num">+30%</div>
+            <div class="lbl">Revenue Increase</div>
+          </div>
+          <div class="metric-box">
+            <div class="num">10M+</div>
+            <div class="lbl">Email Revenue</div>
+          </div>
+          <div class="metric-box">
+            <div class="num">100%</div>
+            <div class="lbl">Performance-Based</div>
+          </div>
+          <div class="metric-box">
+            <div class="num">0</div>
+            <div class="lbl">Ad Spend Needed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USP STRIP -->
+<div id="usp">
+  <div class="usp-grid">
+    <div class="usp-card">
+      <div class="usp-icon green">✓</div>
+      <div class="usp-text">More sales with no ad costs</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon purple">🖼</div>
+      <div class="usp-text">Full-service and done-for-you</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon yellow">🏆</div>
+      <div class="usp-text">10M+ email revenue generated</div>
+    </div>
+    <div class="usp-card">
+      <div class="usp-icon">⚡</div>
+      <div class="usp-text">100% performance-based</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-text">
+        <div class="section-label">Why Us?</div>
+        <h2>We care about<br>your results</h2>
+        <div class="divider"></div>
+        <p>Emmpa is not an average agency. We actually care about results and select carefully who to work with.</p>
+        <p>Thanks to the performance-based approach, you take on little to no risk when working with us. Simply put, at the end of the day we only make money if you do — so it's a win-win.</p>
+      </div>
+      <div class="why-photos">
+        <div class="why-photo"><div class="why-photo-placeholder">📊</div></div>
+        <div class="why-photo"><div class="why-photo-placeholder">💻</div></div>
+        <div class="why-photo"><div class="why-photo-placeholder">📈</div></div>
+        <div class="why-photo"><div class="why-photo-placeholder">🤝</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands">
+  <div class="container">
+    <div class="section-label">Trusted By</div>
+    <h2>Brands we work with</h2>
+    <div class="divider" style="margin-bottom:48px"></div>
+    <div class="brands-grid">
+      <div class="brand-pill">FACTORYLUX</div>
+      <div class="brand-pill">3D PRINTING USA</div>
+      <div class="brand-pill">KALINKA STAR</div>
+      <div class="brand-pill">FLORAL N5</div>
+      <div class="brand-pill">CITY FURNITURE</div>
+      <div class="brand-pill">MYFOOTBALLPLAYS</div>
+      <div class="brand-pill">TOMLINSON'S</div>
+      <div class="brand-pill">MÉTIER LONDON</div>
+      <div class="brand-pill">WINNING ADS MEDIA</div>
+      <div class="brand-pill">PIKORE DESIGN</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="section-label">Email Marketing Statistics</div>
+    <h2 style="color:white;margin-bottom:12px;">4 Numbers You Should Know</h2>
+    <div class="divider" style="margin-bottom:56px"></div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-num">89%</div>
+        <div class="stat-desc">of marketers use email as the primary channel for generating leads.</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4200%</div>
+        <div class="stat-desc">Email marketing ROI — $42 for every $1 spent.</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">40%</div>
+        <div class="stat-desc">Email is 40% better at converting than Facebook, Instagram and TikTok.</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">8×</div>
+        <div class="stat-desc">Triggered emails result in 8x more opens and greater earnings than bulk emails.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section id="services">
+  <div class="container">
+    <div class="section-label">Our Services</div>
+    <h2>What we do</h2>
+    <p class="section-sub">Full-service done-for-you email and SMS marketing management</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-label">Automations Strategy</div>
+        <div class="service-title">Optimize Your Funnel</div>
+        <div class="service-desc">Communicate and retarget your customers on each step of their buying process, based on their behavior or preferences.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📣</div>
+        <div class="service-label">Campaigns Strategy</div>
+        <div class="service-title">Engage And Monetize</div>
+        <div class="service-desc">Send hyper-targeted campaigns that not only sell but educate, inspire and cultivate loyalty.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <div class="service-label">Design and Copy</div>
+        <div class="service-title">Send Beautiful Emails</div>
+        <div class="service-desc">Create a consistent design system that feels, looks, and sounds like your brand.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📬</div>
+        <div class="service-label">Deliverability Management</div>
+        <div class="service-title">Hit the Inbox</div>
+        <div class="service-desc">Segment, optimize, and utilize best practices to deliver the right emails to the right people in the right Gmail folder.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-label">Optimization and Support</div>
+        <div class="service-title">Grow With Confidence</div>
+        <div class="service-desc">Get peace of mind knowing there's a dedicated team working on improving performance on a regular basis.</div>
+      </div>
+      <div class="service-card cta-card">
+        <p class="service-title">Skyrocket Your E-commerce Business Growth</p>
+        <p>With the right retention marketing strategy</p>
+        <a href="#cta" class="btn-white">Book a conversation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN -->
+<section id="design">
+  <div class="container">
+    <div class="section-label">Portfolio</div>
+    <h2>Design matters</h2>
+    <p class="section-sub">Just a small snapshot of how our emails look like</p>
+    <div class="design-scroll">
+      <div class="design-item">✉️</div>
+      <div class="design-item">🛍️</div>
+      <div class="design-item">📧</div>
+      <div class="design-item">💌</div>
+      <div class="design-item">🎯</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2>Ok, I'm ready. What's next?</h2>
+    <p class="section-sub">Our process</p>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-icon">⚡ Onboarding</div>
+        <div class="step-desc">We get to know your brand, goals, and current email setup.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-icon">⚙️ Initial Setup</div>
+        <div class="step-desc">We set up automations, templates and deliverability infrastructure.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-icon">📣 Campaigns</div>
+        <div class="step-desc">We launch targeted campaigns that drive consistent revenue.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-icon">📈 Optimization</div>
+        <div class="step-desc">We continuously test and improve to maximize your results.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="container">
+    <div class="section-label">Case Studies</div>
+    <h2>Results we are proud of</h2>
+    <div class="divider" style="margin-bottom:64px"></div>
+
+    <div class="case-study">
+      <div>
+        <div class="case-tag">Case Studies 1</div>
+        <div class="case-title">Up to 333% Increase in Open Rates and 35% Email Revenue</div>
+        <div class="case-desc">Wellness brand SkinnyMe Tea needed a robust email marketing program that met their expected results. They wanted to revamp their email marketing workflow with a fresh new strategy, and we brewed the perfect concoction for them (pun intended)…</div>
+        <a href="#" class="btn-case">Full Case</a>
+      </div>
+      <div class="case-images">
+        <div class="case-img">📧</div>
+        <div class="case-img">📩</div>
+        <div class="case-img">💌</div>
+      </div>
+    </div>
+
+    <div class="case-study reverse">
+      <div>
+        <div class="case-tag">Case Studies 2</div>
+        <div class="case-title">Email Results Fit for Kings: 41% of Revenue from Email Marketing and 272% Increase in Campaign Revenue</div>
+        <div class="case-desc">Kingston Shaver is an eCommerce brand that particularly focuses on a niche community of bald customers. With products like grooming kits, replacement blades, and accessories, they intend on creating a smooth experience for their customers (pun intended)…</div>
+        <a href="#" class="btn-case">Full Case</a>
+      </div>
+      <div class="case-images">
+        <div class="case-img">👑</div>
+        <div class="case-img">🪒</div>
+        <div class="case-img">✨</div>
+      </div>
+    </div>
+
+    <div class="case-study">
+      <div>
+        <div class="case-tag">Case Studies 3</div>
+        <div class="case-title">Electrifying Increase of Email Attribution from 17% to 48%</div>
+        <div class="case-desc">A game-changer in consumer electronics, Chargeasap offers an innovative range of mobile charging accessories. With an excellent support system of international backers who help them produce cutting-edge products, this crowd-funded brand has definitely gathered their own fanbase since 2016…</div>
+        <a href="#" class="btn-case">Full Case</a>
+      </div>
+      <div class="case-images">
+        <div class="case-img">⚡</div>
+        <div class="case-img">🔌</div>
+        <div class="case-img">📱</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-label">Reviews</div>
+    <h2>Testimonials</h2>
+    <div class="divider" style="margin-bottom:48px"></div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-title">Klaviya Automation Flows — Eco Agency</div>
+        <div class="stars">★★★★★</div>
+        <div class="rating">5.0 <span>Jun 12, 2022 – Aug 10, 2022</span></div>
+        <div class="testimonial-text">«Ihor is a true master of his craft, easy to talk with and always available.»</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-title">Email marketing for E-commerce (Ukrainian language is a plus)</div>
+        <div class="stars">★★★★★</div>
+        <div class="rating">5.0 <span>Jun 3, 2022 – Aug 25, 2022</span></div>
+        <div class="testimonial-text">«Ihor was a pleasure to work with. From the initial strategy discussions, to the e-mail design and ultimately technical execution he was excellent. It was a White-Label product. He's a clear expert on e-mail marketing and on top of that a great guy to work.»</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-title">Klaviya Email Marketing for E-Commerce B2B Dropshipping Service</div>
+        <div class="stars">★★★★★</div>
+        <div class="rating">5.0 <span>Jun 27, 2022 – Aug 5, 2022</span></div>
+        <div class="testimonial-text">«Ihor is an expert on Klaviyo, he just did the job with attention to details. I would hire him again.»</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EBOOK -->
+<section id="ebook" style="padding:80px 40px">
+  <div class="ebook-inner">
+    <div>
+      <div class="ebook-tag">Shopify Store Owners:</div>
+      <div class="ebook-title">How to make <span>+30–50%</span> Extra Easy Money with Email Marketing in eCommerce</div>
+      <div class="ebook-sub">The ultimate step-by-step guide</div>
+      <div class="ebook-form">
+        <input class="ebook-input" type="email" placeholder="Enter email" />
+        <button class="btn-primary" style="white-space:nowrap">Get eBook Free</button>
+      </div>
+    </div>
+    <div class="ebook-visual">
+      <div class="ebook-cover">
+        <div style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#94a3b8">HOW TO MAKE EXTRA</div>
+        <strong>+30–50%<br>EASY MONEY WITH<br>EMAIL MARKETING</strong>
+        <div style="font-size:12px;color:#94a3b8;margin-top:8px">in eCommerce</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2>Answers to your questions</h2>
+    <div class="divider" style="margin-bottom:48px"></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is the commission you charge? <span class="icon">+</span></button>
+        <div class="faq-a">We work on a performance-based model. Our fee is a percentage of the revenue we generate through email marketing, which means we only make money when you do.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is there a minimum commitment period? <span class="icon">+</span></button>
+        <div class="faq-a">We typically work on a 3-month initial period to see meaningful results, then continue month-to-month.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you have a money-back guarantee? <span class="icon">+</span></button>
+        <div class="faq-a">Since we work on a performance basis, if we don't generate revenue for you — you don't pay. That's our guarantee.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Do you work with one-product stores? <span class="icon">+</span></button>
+        <div class="faq-a">Yes, we work with all types of Shopify stores including one-product brands. Email marketing works exceptionally well for focused product lines.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What ESP (email service provider) do you work with? <span class="icon">+</span></button>
+        <div class="faq-a">We are Klaviyo Expert Partners and primarily work with Klaviyo. We also have experience with other ESPs.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will you create both flows and campaigns? <span class="icon">+</span></button>
+        <div class="faq-a">Yes, our full-service package includes both automated flows and regular campaign management.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How many flows will you create? <span class="icon">+</span></button>
+        <div class="faq-a">We create all essential flows (welcome, abandoned cart, post-purchase, winback, browse abandonment) plus custom flows based on your business needs.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How many campaigns will you send per week? <span class="icon">+</span></button>
+        <div class="faq-a">Typically 2–4 campaigns per week, depending on your list size and engagement metrics. We always optimize for revenue without burning out your list.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will you create forms and pop-ups to grow my email list? <span class="icon">+</span></button>
+        <div class="faq-a">Yes, list growth is part of our full-service package. We create and optimize sign-up forms and pop-ups.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will you take care of design and copy? <span class="icon">+</span></button>
+        <div class="faq-a">Absolutely. Our team handles everything — strategy, design, copywriting, and technical setup. Done for you.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will you work on deliverability to increase open rates and click rates? <span class="icon">+</span></button>
+        <div class="faq-a">Yes, deliverability is a core part of our work. We monitor sender reputation, segment lists, and use best practices to maximize inbox placement.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Will you create SMS flows and campaigns? <span class="icon">+</span></button>
+        <div class="faq-a">Yes, SMS marketing is available as part of our service. We integrate SMS into your overall retention marketing strategy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" style="padding:60px 40px;background:var(--green-light)">
+  <div class="cta-banner">
+    <div>
+      <div class="cta-text">Still have questions?</div>
+      <div class="cta-title">Let's talk!</div>
+    </div>
+    <a href="https://calendly.com" class="btn-primary" style="white-space:nowrap;font-size:16px;padding:18px 40px">Book a conversation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo-text">EMMPA</span>
+        <p>Performance-based retention-marketing team for eCommerce.</p>
+        <div class="footer-badges">
+          <div class="footer-badge">Shopify Partner</div>
+          <div class="footer-badge">Klaviyo Expert Partner</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="#why">Why Us?</a>
+        <a href="#stats">Statistic</a>
+        <a href="#services">What We Do</a>
+        <a href="#design">Design</a>
+        <a href="#process">Our Process</a>
+        <a href="#results">Results</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="contact-item"><span class="contact-icon">📞</span> sales@emmpa.pro</div>
+        <div class="contact-item"><span class="contact-icon">✈️</span> +380634069004</div>
+        <div class="social-row">
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">📷</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contract Offer</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>©2022–2023 EMMPA | All rights reserved</p>
+      <p><a href="#">Privacy Policy</a> / <a href="#">Contract Offer</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('show');
+    document.querySelectorAll('.faq-a.show').forEach(el => el.classList.remove('show'));
+    document.querySelectorAll('.faq-q.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('show');
+      btn.classList.add('open');
+    }
+  }
+
+  // Smooth active nav highlight
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--green)' : '';
+    });
+  });
+</script>
+</body>
+</html>
